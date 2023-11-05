@@ -9,4 +9,14 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!-- Strings used for rs6 -->
+    <string-array name="opciones">
+        <item>PIEDRA</item>
+        <item>TIJERAS</item>
+        <item>PAPEL</item>
+        <item>LAGARTO</item>
+        <item>SPOCK</item>
+    </string-array>
+
 </resources>
