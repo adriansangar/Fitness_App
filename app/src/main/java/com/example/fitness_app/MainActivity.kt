@@ -11,48 +11,66 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.fitness_app.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+// Enum con las opciones
+enum class opciones {
+    PIEDRA,
+    PAPEL,
+    TIJERAS,
+    LAGARTO,
+    SPOCK
+}
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
+// Resultados
+val resultados = arrayOf(
+    arrayOf(opciones.TIJERAS, opciones.PAPEL),
+    arrayOf(opciones.TIJERAS, opciones.LAGARTO),
+    arrayOf(opciones.PAPEL, opciones.PIEDRA),
+    arrayOf(opciones.PAPEL, opciones.SPOCK),
+    arrayOf(opciones.PIEDRA, opciones.TIJERAS),
+    arrayOf(opciones.PIEDRA, opciones.LAGARTO),
+    arrayOf(opciones.LAGARTO, opciones.PAPEL),
+    arrayOf(opciones.LAGARTO, opciones.SPOCK),
+    arrayOf(opciones.SPOCK, opciones.TIJERAS),
+    arrayOf(opciones.SPOCK, opciones.PIEDRA)
+)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+fun play( p1: opciones, p2:opciones){
+    println("Player 1 plays with $p1, Player 2 with $p2")
+    if(p1 == p2){
+        println("Tie")
+    } else {
+        var p1Wins = false
+        for (i in 0 until resultados.size){
+            if (p1 == resultados[i][0] && p2 == resultados[i][1]){
+                p1Wins = true
+            }
+        }
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        setSupportActionBar(binding.toolbar)
-
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        // Print results
+        if (p1Wins) {
+            println("Player 1 wins!!")
+        } else {
+            println("Player 2 wins!!")
         }
     }
+}
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
+fun main( args: Array<String>) {
+    println("Reto semanal 6: Piedra, papel, tijeras, lagarto, spock")
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
+    // Tie
+    var p1Option = opciones.PAPEL
+    var p2Option = opciones.PAPEL
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
+    play(p1Option, p2Option)
+
+    // P1 wins
+    p1Option = opciones.TIJERAS
+
+    play(p1Option, p2Option)
+
+    // P2 wins
+    p2Option = opciones.SPOCK
+
+    play(p1Option, p2Option)
 }
